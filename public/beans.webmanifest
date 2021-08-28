@@ -1,0 +1,37 @@
+{
+    "name": "BEANS",
+    "short_name": "BEANS",
+    "description": "The Eternal Screaming of the Damned",
+    "categories": ["shitpost"],
+    "icons": [
+      {
+        "src": "img/beans32.png",
+        "sizes": "32x32",
+        "type": "image/png"
+      },
+      {
+        "src": "img/beans64.png",
+        "sizes": "64x64",
+        "type": "image/png"
+      },
+      {
+        "src": "img/beans128.png",
+        "sizes": "128x128",
+        "type": "image/png"
+      },
+      {
+        "src": "img/beans256.png",
+        "sizes": "256x256",
+        "type": "image/png"
+      },
+      {
+        "src": "img/beans512.png",
+        "sizes": "512x512",
+        "type": "image/png"
+      }
+    ],
+    "start_url": "/",
+    "display": "fullscreen",
+    "theme_color": "#9d7154",
+    "background_color": "#9d7154"
+  }

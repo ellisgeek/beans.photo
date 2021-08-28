@@ -1,5 +1,7 @@
 # Just a massive Shitpost
 
+![BEANS](https://beans.photo/img/beans512.png "BEANS")
+
 **Audio Credits:**
  - "Beans" - https://iot.sparx.dog/
  - "Water" - https://freesound.org/people/alphahog/sounds/46093/
