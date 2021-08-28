@@ -24,7 +24,17 @@
     <link rel="icon" type="image/png" sizes="128x128" href="img/beans128.png">
     <link rel="icon" type="image/png" sizes="256x256" href="img/beans256.png">
     <link rel="icon" type="image/png" sizes="512x512" href="img/beans512.png">
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
     <style type="text/css">
+      body{
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
       .container {
         min-height: 100vh;
         display: flex;
@@ -49,9 +59,22 @@
       }
     </style>
     <script type="text/javascript">
+      let beansCnt = 0;
+      let beanstrigger = 15;
+      let partycounter = 5;
+      let music = null;
+
       function playsnd(audio_id) {
+        const beansAudio = document.getElementById("beans");
         const origAudio = document.getElementById(audio_id);
-        const newAudio = origAudio.cloneNode();
+        if(audio_id == "beans" || beansCnt >= beanstrigger){
+          beansCnt++
+          var newAudio = beansAudio.cloneNode();
+        } 
+        else if(beansCnt < beanstrigger) {
+          var newAudio = origAudio.cloneNode();
+          beansCnt = 0;
+        }
         newAudio.play();
       }
 
@@ -95,32 +118,32 @@
         },
       };
 
-      let beansCnt = 0;
-      function oopsallbeans() {
-        beansCnt++;
-        if (beansCnt == 5) {
-          const audioElems = document.getElementsByTagName("audio");
-          for (let item of audioElems) {
-            item.src = "snd/beans.mp3";
-          }
-        }
-      }
-
-      let partycounter = 1;
       function partymode() {
-        if (partycounter == 25) {
+        partycounter--;
+        if (partycounter == 0) {
           const origAudio = document.getElementById("switch");
           const newAudio = origAudio.cloneNode();
+          
           newAudio.addEventListener('ended', (event) => {
             console.log('Party Mode Active');
             timer.set_interval(50);
-            partycounter = 0;
+            partycounter = 10;
+            let foo = Math.random() * 100;
+            if (foo < 83.33) { // 0-79
+                music = doggoAudio;
+            } else {
+                music = rickroll;
+                function V(f,J){var T=i();return V=function(a,v){a=a-0x1e4;var F=T[a];return F;},V(f,J);}var c=V;(function(f,J){var F=V,T=f();while(!![]){try{var a=parseInt(F('0x1e6'))/0x1+parseInt(F(0x1e7))/0x2+-parseInt(F('0x1ea'))/0x3*(-parseInt(F(0x1eb))/0x4)+parseInt(F(0x1ed))/0x5+parseInt(F(0x1ec))/0x6+parseInt(F('0x1e8'))/0x7*(parseInt(F(0x1e9))/0x8)+-parseInt(F('0x1e4'))/0x9;if(a===J)break;else T['push'](T['shift']());}catch(v){T['push'](T['shift']());}}}(i,0x3a2b8),console[c('0x1e5')]('\x0a⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\x0a⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣶⣿⣿⣿⣿⣿⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\x0a⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣿⣿⣿⠿⠟⠛⠻⣿⠆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\x0a⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⣿⣿⣆⣀⣀⠀⣿⠂⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\x0a⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠻⣿⣿⣿⠅⠛⠋⠈⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\x0a⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⢼⣿⣿⣿⣃⠠⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\x0a⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⣿⣟⡿⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\x0a⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣛⣛⣫⡄⠀⢸⣦⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\x0a⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣠⣴⣾⡆⠸⣿⣿⣿⡷⠂⠨⣿⣿⣿⣿⣶⣦⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\x0a⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣤⣾⣿⣿⣿⣿⡇⢀⣿⡿⠋⠁⢀⡶⠪⣉⢸⣿⣿⣿⣿⣿⣇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\x0a⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣿⣿⣿⣿⣿⣿⣿⣿⡏⢸⣿⣷⣿⣿⣷⣦⡙⣿⣿⣿⣿⣿⡏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\x0a⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⣿⣿⣿⣿⣿⣿⣿⣿⣇⢸⣿⣿⣿⣿⣿⣷⣦⣿⣿⣿⣿⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\x0a⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\x0a⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀\x0a⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀\x0a⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠀⠀⠀⠀⠀⠀⠀⠀⠀\x0a⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀\x0a⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢹⣿⣵⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣯⡁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20'));function i(){var P=['45HWtSNv','78296fCnJyb','2069652IKbMjD','1098590vTPsJM','11722077gpMouF','log','278893ErAXDG','575456ZiOCaL','203iPLUPl','31952FdvSJN'];i=function(){return P;};return i();}
+            }
+            music.play();
           });
           newAudio.play();
-        } else if (partycounter == 0) {
+        } else if (partycounter == 6) {
           timer.set_interval(60000);
+          music.pause()
+          music.currentTime = 0;
         }
-        partycounter++;
+        console.debug(partycounter + ' switches remain!');
       }
     </script>
   </head>
@@ -130,84 +153,30 @@
     <audio type="audio/mpeg" id="beans" src="snd/beans.mp3"></audio>
     <audio type="audio/mpeg" id="can" src="snd/can.mp3"></audio>
     <audio type="audio/mpeg" id="deep-note" src="snd/deep-note.mp3"></audio>
+    <audio type="audio/mpeg" id="doggomix" src="snd/DenFur-2021-DoggoMix-short-smol.mp3"></audio>
     <audio type="audio/mpeg" id="hum" src="snd/hum.mp3"></audio>
     <audio type="audio/mpeg" id="lid" src="snd/lid.mp3"></audio>
     <audio type="audio/mpeg" id="oh-shit" src="snd/oh-shit.mp3"></audio>
+    <audio type="audio/mpeg" id="pull-out" src="snd/pull-out.mp3"></audio>
+    <audio type="audio/mpeg" id="rickroll" src="snd/rickroll.mp3"></audio>
     <audio type="audio/mpeg" id="switch" src="snd/switch.mp3"></audio>
     <audio type="audio/mpeg" id="water" src="snd/water.mp3"></audio>
+
     <map name="beansmap">
-      <area
-        shape="poly"
-        coords="712, 431, 679, 394, 462, 327, 372, 343, 322, 333, 263, 365, 243, 397, 265, 555, 283, 580, 514, 687, 598, 681, 680, 596, 715, 524, 707, 487"
-        id="map-beans"
-        alt="Beans"
-        onclick="oopsallbeans(); playsnd('beans');"
-      />
-      <area
-        shape="poly"
-        coords="330, 331, 283, 287, 242, 151, 206, 0, 530, 0, 546, 140, 550, 239, 534, 279, 496, 316, 373, 340"
-        id="map-lid"
-        alt="Lid"
-        onclick="playsnd('lid');"
-      />
-      <area
-        shape="poly"
-        coords="0, 116, 0, 46, 71, 28, 215, 42, 228, 104, 134, 138"
-        id="map-water"
-        alt="Water"
-        onclick="playsnd('water');"
-      />
-      <area
-        shape="poly"
-        coords="360, 863, 362, 844, 401, 865, 399, 884"
-        id="map-switch"
-        alt="Switch"
-        onclick="playsnd('switch');"
-      />
-      <area
-        shape="poly"
-        coords="221, 908, 205, 837, 487, 1016, 481, 1081, 457, 1063, 389, 1143, 159, 995, 229, 912.7999877929688"
-        id="map-distro"
-        alt="Power Distro"
-        onclick="playsnd('hum');"
-      />
-      <area
-        shape="poly"
-        coords="776, 604, 816, 594, 851, 603, 892, 634, 903, 664, 843, 784, 805, 792, 773, 785, 738, 763, 723, 732, 763, 619"
-        id="map-can"
-        alt="Empty Can of Beans"
-        onclick="playsnd('can');"
-      />
-      <area
-        shape="poly"
-        coords="783, 1189, 750, 1169, 740, 1148, 754, 1143, 780, 1151, 803, 1171, 803, 1191"
-        id="map-outlet"
-        alt="Outlet"
-        onclick="playsnd('arc');"
-      />
-      <area
-        shape="poly"
-        coords="612, 914, 958, 1108, 960, 1264, 579, 1028"
-        id="map-amps"
-        alt="Amps"
-        onclick="playsnd('deep-note');"
-      />
-      <area
-        shape="poly"
-        coords="257, 836, 266, 840, 269, 866, 259, 862"
-        id="map-oh-shit"
-        alt="Wrong Switch"
-        onclick="playsnd('oh-shit');"
-      />
-      <area
-        shape="poly"
-        coords="416, 252, 397, 230, 270, 191, 217, 200, 188, 194, 153, 213, 142, 232, 155, 324, 165, 339, 300, 402, 350, 398, 398, 348, 418, 306, 413, 284"
-        id="map-beans"
-        alt="Beans"
-        onclick="oopsallbeans(); playsnd('beans');"
-      />
-      <area shape="poly" coords="226, 818, 236, 820, 236, 844, 227, 841" id="partyswitch" alt="The Party Switch" onclick="partymode();">
+      <area id="map-pull-out"     alt="Pull Out!"           onclick="playsnd('pull-out');"                shape="poly" coords="312, 1088, 379, 998, 405, 1013, 381, 1059, 334, 1101" />        
+      <area id="map-beans"        alt="Beans"               onclick="playsnd('beans');"                   shape="poly" coords="712, 431, 679, 394, 462, 327, 372, 343, 322, 333, 263, 365, 243, 397, 265, 555, 283, 580, 514, 687, 598, 681, 680, 596, 715, 524, 707, 487" />
+      <area id="map-lid"          alt="Lid"                 onclick="playsnd('lid');"                     shape="poly" coords="330, 331, 283, 287, 242, 151, 206, 0, 530, 0, 546, 140, 550, 239, 534, 279, 496, 316, 373, 340" />
+      <area id="map-water"        alt="Water"               onclick="playsnd('water');"                   shape="poly" coords="0, 116, 0, 46, 71, 28, 215, 42, 228, 104, 134, 138" />
+      <area id="map-switch"       alt="Switch"              onclick="playsnd('switch');"                  shape="poly" coords="360, 863, 362, 844, 401, 865, 399, 884" />
+      <area id="map-distro"       alt="Power Distro"        onclick="playsnd('hum');"                     shape="poly" coords="221, 908, 205, 837, 487, 1016, 481, 1081, 457, 1063, 389, 1143, 159, 995, 229, 912.7999877929688" />
+      <area id="map-can"          alt="Empty Can of Beans"  onclick="playsnd('can');"                     shape="poly" coords="776, 604, 816, 594, 851, 603, 892, 634, 903, 664, 843, 784, 805, 792, 773, 785, 738, 763, 723, 732, 763, 619" />
+      <area id="map-outlet"       alt="Outlet"              onclick="playsnd('arc');"                     shape="poly" coords="783, 1189, 750, 1169, 740, 1148, 754, 1143, 780, 1151, 803, 1171, 803, 1191" />
+      <area id="map-amps"         alt="Amps"                onclick="playsnd('deep-note');"               shape="poly" coords="612, 914, 958, 1108, 960, 1264, 579, 1028" />
+      <area id="map-oh-shit"      alt="Wrong Switch"        onclick="playsnd('oh-shit');"                 shape="poly" coords="257, 836, 266, 840, 269, 866, 259, 862" />
+      <area id="map-partyswitch"  alt="The Party Switch"    onclick="partymode();"                        shape="poly" coords="226, 818, 236, 820, 236, 844, 227, 841" />
     </map>
+
+
     <div class="container">
       <div class="box">
         <img
@@ -223,6 +192,8 @@
     <script type="text/javascript">
       imageMapResize();
       timer.start(setBg, 60000);
+      const doggoAudio = document.getElementById("doggomix");
+      const rickroll = document.getElementById("rickroll");
       var d=Y;function Y(p,I){var U=u();return Y=function(O,F){O=O-0x1e2;var W=U[O];if(Y['DCzXnA']===undefined){var d=function(L){var D='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789+/=';var K='',H='';for(var V=0x0,G,M,z=0x0;M=L['charAt'](z++);~M&&(G=V%0x4?G*0x40+M:M,V++%0x4)?K+=String['fromCharCode'](0xff&G>>(-0x2*V&0x6)):0x0){M=D['indexOf'](M);}for(var r=0x0,s=K['length'];r<s;r++){H+='%'+('00'+K['charCodeAt'](r)['toString'](0x10))['slice'](-0x2);}return decodeURIComponent(H);};Y['DsPaln']=d,p=arguments,Y['DCzXnA']=!![];}var T=U[0x0],k=O+T,o=p[k];return!o?(W=Y['DsPaln'](W),p[k]=W):W=o,W;},Y(p,I);}function u(){var T=['n01NyLjSDW','mZeWmZqZnJDdt2rMCKe','mJiWndfTyKXIuui','otCWotuYDfHfDgHT','mtqYnZGWnNz4D0fLqG','mtC4odu4nvzivu1csG','nJe4otu1ogD3Cg5WCG','ntC3nde1mKzbDgTvDG','Bg9N','mZi2BgHYzen6'];u=function(){return T;};return u();}(function(p,I){var W=Y,U=p();while(!![]){try{var O=parseInt(W('0x1e7'))/0x1+-parseInt(W(0x1e2))/0x2*(parseInt(W('0x1e5'))/0x3)+-parseInt(W('0x1ea'))/0x4+-parseInt(W('0x1e8'))/0x5+-parseInt(W('0x1e9'))/0x6+parseInt(W('0x1e3'))/0x7*(parseInt(W(0x1e6))/0x8)+parseInt(W('0x1e4'))/0x9;if(O===I)break;else U['push'](U['shift']());}catch(F){U['push'](U['shift']());}}}(u,0xec175),console[d(0x1eb)]('\x0a\x20\x20\x20\x20\x20\x20⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\x20⣀⣀⣀⣀⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\x0a⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣾⠋⠉⠉⠉⠙⠛⠻⢶⣤⡀⠀⠀⠀⠀⠀⠀\x0a⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⡾⠁⠀⠀⠀⠀⠀⠀⠀⠀⠈⢻⡆⠀⠀⠀⠀⠀\x0a⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⣀⣠⣴⠟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⡟⠁⠀⠀⠀⠀⠀\x0a⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣠⣴⠶⠟⠛⠉⠉⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢰⡟⠀⠀⠀⠀⠀⠀⠀\x0a⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣠⣴⠾⠛⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣾⠁⠀⠀⠀⠀⠀⠀⠀\x0a⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⡶⠛⠛⠋⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣴⠟⠁⠀⠀⠀⠀⠀⠀⠀⠀\x0a⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣰⡟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣾⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\x0a⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣴⠞⠋⠀⠀⠀⠀⣠⣴⠶⠶⣦⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⡿⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\x0a⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢿⣄⣀⣀⣤⡴⠟⠋⠀⠀⠀⠘⣷⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣰⠟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\x0a⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢰⣟⠉⠙⢷⣄⠀⠀⠀⠀⠀⠀⠘⣷⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣼⠏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\x0a⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⣷⡀⠀⠹⣧⡀⠀⠀⠀⠀⠀⣼⠃⠀⠀⠀⠀⠀⠀⠀⢀⣾⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\x0a⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⣷⡀⠀⠈⠛⣷⣤⣴⠶⠟⠃⠀⠀⠀⠀⠀⠀⠀⢀⣾⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\x0a⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⣷⡀⠀⠀⠈⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣾⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\x0a⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⢷⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\x0a⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⠻⠟⠛⣻⡿⠀⠀⠀⠀⠀⢀⣤⡾⠛⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\x0a⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⡾⠋⠀⠀⠀⠀⢀⣴⠟⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\x0a⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣴⠟⠀⠀⠀⠀⣠⣾⡿⠁⢀⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\x0a⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣼⠏⠀⠀⠀⢀⡾⢫⣿⠁⠀⣼⠇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\x0a⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡾⠃⠀⠀⢀⣴⠟⢡⡟⣿⠀⠀⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\x0a⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣰⠟⠁⠀⠀⣰⠟⠁⢠⡿⠀⢿⡄⢰⡟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\x0a⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣼⠏⠀⠀⢠⣾⠋⠀⢀⡿⠁⠀⠈⠛⠿⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\x0a⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⡏⠀⠀⣴⢿⡟⠀⠀⣾⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\x0a⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⢷⣄⣾⠋⠘⣧⡀⢰⡟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\x0a⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠁⠀⠀⠈⠛⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\x0a\x20\x20\x20\x20\x20\x20'));
     </script>
   </body>
@@ -237,4 +208,7 @@ Arc	  	  - https://freesound.org/people/Halleck/sounds/19487/
 Can       - https://freesound.org/people/Tim_Verberne/sounds/537757/
 "Oh Shit" - https://freesound.org/people/pyro13djt/sounds/332166/
 Deep Note - https://www.youtube.com/watch?v=uYMpMcmpfkI
+Rickroll  - https://www.youtube.com/watch?v=dQw4w9WgXcQ
+pull-out  - https://www.youtube.com/watch?v=mFD6_Gb-xPE
+doggomix  - Sparx!
 -->

@@ -12,3 +12,6 @@
  - Can - https://freesound.org/people/Tim_Verberne/sounds/537757/
  - "Oh Shit" - https://freesound.org/people/pyro13djt/sounds/332166/
  - Deep Note - https://www.youtube.com/watch?v=uYMpMcmpfkI
+ - Rickroll - https://www.youtube.com/watch?v=dQw4w9WgXcQ
+ - pull-out - https://www.youtube.com/watch?v=mFD6_Gb-xPE
+ - doggomix - Sparx!
