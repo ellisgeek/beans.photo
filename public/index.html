@@ -1,0 +1,217 @@
+<!DOCTYPE html5>
+<html>
+  <head>
+    <title>ℬ∑∀ℵ$</title>
+    <style type="text/css">
+      .container {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+      }
+
+      .box {
+        display: grid;
+        height: 100%;
+      }
+
+      .img {
+        max-width: 100%;
+        max-height: 100vh;
+        margin: auto;
+      }
+    </style>
+    <script type="text/javascript">
+      function playsnd(audio_id) {
+        const origAudio = document.getElementById(audio_id);
+        const newAudio = origAudio.cloneNode();
+        newAudio.play();
+      }
+
+      let beansCnt = 0;
+      function oopsallbeans() {
+        beansCnt++;
+        if (beansCnt == 5) {
+          const audioElems = document.getElementsByTagName("audio");
+          for (let item of audioElems) {
+            item.src = "snd/beans.mp3";
+          }
+        }
+      }
+
+      function setBg() {
+        const randomColor = Math.floor(Math.random() * 16777215).toString(16);
+        document.body.style.backgroundColor = "#" + randomColor;
+      }
+
+      document.onreadystatechange = function () {
+        if (document.readyState === "complete") {
+          setBg();
+        }
+      };
+
+      var timer = {
+        running: false,
+        iv: 5000,
+        timeout: false,
+        cb: function () {},
+        start: function (cb, iv) {
+          var elm = this;
+          clearInterval(this.timeout);
+          this.running = true;
+          if (cb) this.cb = cb;
+          if (iv) this.iv = iv;
+          this.timeout = setTimeout(function () {
+            elm.execute(elm);
+          }, this.iv);
+        },
+        execute: function (e) {
+          if (!e.running) return false;
+          e.cb();
+          e.start();
+        },
+        stop: function () {
+          this.running = false;
+        },
+        set_interval: function (iv) {
+          clearInterval(this.timeout);
+          this.start(false, iv);
+        },
+      };
+
+      let partycounter = 1;
+      function partymode() {
+        if (partycounter == 25) {
+          const origAudio = document.getElementById("switch");
+          const newAudio = origAudio.cloneNode();
+          newAudio.addEventListener('ended', (event) => {
+            console.log('Party Mode Active');
+            timer.set_interval(50);
+            partycounter = 0;
+          });
+          newAudio.play();
+        } else if (partycounter == 0) {
+          timer.set_interval(60000);
+        }
+        partycounter++;
+      }
+    </script>
+  </head>
+
+  <body>
+    <audio type="audio/mpeg" id="arc" src="snd/arc.mp3"></audio>
+    <audio type="audio/mpeg" id="beans" src="snd/beans.mp3"></audio>
+    <audio type="audio/mpeg" id="can" src="snd/can.mp3"></audio>
+    <audio type="audio/mpeg" id="deep-note" src="snd/deep-note.mp3"></audio>
+    <audio type="audio/mpeg" id="hum" src="snd/hum.mp3"></audio>
+    <audio type="audio/mpeg" id="lid" src="snd/lid.mp3"></audio>
+    <audio type="audio/mpeg" id="oh-shit" src="snd/oh-shit.mp3"></audio>
+    <audio type="audio/mpeg" id="switch" src="snd/switch.mp3"></audio>
+    <audio type="audio/mpeg" id="water" src="snd/water.mp3"></audio>
+    <map name="beansmap">
+      <area
+        shape="poly"
+        coords="712, 431, 679, 394, 462, 327, 372, 343, 322, 333, 263, 365, 243, 397, 265, 555, 283, 580, 514, 687, 598, 681, 680, 596, 715, 524, 707, 487"
+        id="map-beans"
+        alt="Beans"
+        onclick="oopsallbeans(); playsnd('beans');"
+      />
+      <area
+        shape="poly"
+        coords="330, 331, 283, 287, 242, 151, 206, 0, 530, 0, 546, 140, 550, 239, 534, 279, 496, 316, 373, 340"
+        id="map-lid"
+        alt="Lid"
+        onclick="playsnd('lid');"
+      />
+      <area
+        shape="poly"
+        coords="0, 116, 0, 46, 71, 28, 215, 42, 228, 104, 134, 138"
+        id="map-water"
+        alt="Water"
+        onclick="playsnd('water');"
+      />
+      <area
+        shape="poly"
+        coords="360, 863, 362, 844, 401, 865, 399, 884"
+        id="map-switch"
+        alt="Switch"
+        onclick="playsnd('switch');"
+      />
+      <area
+        shape="poly"
+        coords="221, 908, 205, 837, 487, 1016, 481, 1081, 457, 1063, 389, 1143, 159, 995, 229, 912.7999877929688"
+        id="map-distro"
+        alt="Power Distro"
+        onclick="playsnd('hum');"
+      />
+      <area
+        shape="poly"
+        coords="776, 604, 816, 594, 851, 603, 892, 634, 903, 664, 843, 784, 805, 792, 773, 785, 738, 763, 723, 732, 763, 619"
+        id="map-can"
+        alt="Empty Can of Beans"
+        onclick="playsnd('can');"
+      />
+      <area
+        shape="poly"
+        coords="783, 1189, 750, 1169, 740, 1148, 754, 1143, 780, 1151, 803, 1171, 803, 1191"
+        id="map-outlet"
+        alt="Outlet"
+        onclick="playsnd('arc');"
+      />
+      <area
+        shape="poly"
+        coords="612, 914, 958, 1108, 960, 1264, 579, 1028"
+        id="map-amps"
+        alt="Amps"
+        onclick="playsnd('deep-note');"
+      />
+      <area
+        shape="poly"
+        coords="257, 836, 266, 840, 269, 866, 259, 862"
+        id="map-oh-shit"
+        alt="Wrong Switch"
+        onclick="playsnd('oh-shit');"
+      />
+      <area
+        shape="poly"
+        coords="416, 252, 397, 230, 270, 191, 217, 200, 188, 194, 153, 213, 142, 232, 155, 324, 165, 339, 300, 402, 350, 398, 398, 348, 418, 306, 413, 284"
+        id="map-beans"
+        alt="Beans"
+        onclick="oopsallbeans(); playsnd('beans');"
+      />
+      <area shape="poly" coords="226, 818, 236, 820, 236, 844, 227, 841" id="partyswitch" alt="The Party Switch" onclick="partymode();">
+    </map>
+    <div class="container">
+      <div class="box">
+        <img
+          class="img"
+          type="image/jpeg"
+          src="img/beans.jpeg"
+          alt="BEANS"
+          usemap="#beansmap"
+        />
+      </div>
+    </div>
+    <script type="text/javascript" src="js/imageMapResizer.min.js"></script>
+    <script type="text/javascript">
+      imageMapResize();
+      timer.start(setBg, 60000);
+    </script>
+  </body>
+</html>
+<!--
+"Beans"   - https://iot.sparx.dog/
+"Water"   - https://freesound.org/people/alphahog/sounds/46093/
+Lid       - https://freesound.org/people/Ev-Dawg/sounds/336220/
+Switch    - https://freesound.org/people/lugarshz/sounds/175081/
+Hum       - https://freesound.org/people/arnaud%20coutancier/sounds/350851/
+Arc	  	  - https://freesound.org/people/Halleck/sounds/19487/
+Can       - https://freesound.org/people/Tim_Verberne/sounds/537757/
+"Oh Shit" - https://freesound.org/people/pyro13djt/sounds/332166/
+Deep Note - https://www.youtube.com/watch?v=uYMpMcmpfkI
+-->
